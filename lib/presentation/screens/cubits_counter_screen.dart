@@ -1,37 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forms_app/presentation/blocs/counter_cubit/counter_cubit.dart';
 
 class CubitsCounterScreen extends StatelessWidget {
   const CubitsCounterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => CounterCubit(),
+      child: _CubitCounterView(),
+    );
+  }
+}
+
+class _CubitCounterView extends StatelessWidget {
+  const _CubitCounterView();
+
+  @override
+  Widget build(BuildContext context) {
+    final counterState = context.watch<CounterCubit>().state;
+    final counterChange = context.read<CounterCubit>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cubit Counter'),
+        title: Text('Cubit Counter: ${counterState.transactionCount}'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.refresh_outlined)),
+          IconButton(
+            onPressed: () {
+              counterChange.reset();
+            },
+            icon: Icon(Icons.refresh_outlined),
+          ),
         ],
       ),
-      body: Center(child: Text('Counter value: 0')),
+      body: Center(
+        child: BlocBuilder<CounterCubit, CounterState>(
+          //solo se actualiza cuando cambie el valor, para eso el buildWhen con la sintaxis
+          // buildWhen: (previous, current) => current.counter != previous.counter,
+          builder: (BuildContext context, state) {
+            return Text('Counter value: ${state.counter}');
+          },
+        ),
+      ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
             heroTag: '1',
             child: Text('+3'),
-            onPressed: () {},
+            onPressed: () => counterChange.increaseBy(3),
           ),
           SizedBox(height: 15),
           FloatingActionButton(
             heroTag: '2',
             child: Text('+2'),
-            onPressed: () {},
+            onPressed: () => counterChange.increaseBy(2),
           ),
           SizedBox(height: 15),
           FloatingActionButton(
             heroTag: '3',
             child: Text('+1'),
-            onPressed: () {},
+            onPressed: () => counterChange.increaseBy(1),
           ),
         ],
       ),
