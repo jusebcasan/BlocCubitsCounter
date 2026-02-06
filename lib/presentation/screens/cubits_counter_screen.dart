@@ -19,11 +19,15 @@ class _CubitCounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counterState = context.watch<CounterCubit>().state;
+    // final counterState = context.watch<CounterCubit>().state;
     final counterChange = context.read<CounterCubit>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cubit Counter: ${counterState.transactionCount}'),
+        //otra forma de acceder al estado de un solo widget sin usar el: final counterState = context.watch<CounterCubit>().state;
+        title: context.select((CounterCubit value) {
+          return Text('Cubit Counter: ${value.state.transactionCount}');
+        }),
+
         actions: [
           IconButton(
             onPressed: () {
@@ -34,6 +38,7 @@ class _CubitCounterView extends StatelessWidget {
         ],
       ),
       body: Center(
+        //esta es una manera de entrar al state de un solo bloque, de un solo widget
         child: BlocBuilder<CounterCubit, CounterState>(
           //solo se actualiza cuando cambie el valor, para eso el buildWhen con la sintaxis
           // buildWhen: (previous, current) => current.counter != previous.counter,
