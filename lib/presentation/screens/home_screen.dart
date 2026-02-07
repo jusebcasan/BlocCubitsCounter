@@ -17,6 +17,14 @@ class HomeScreen extends StatelessWidget {
               context.push('/cubits');
             },
           ),
+          ListTile(
+            title: Text('BloC'),
+            subtitle: Text('Gestor de estado compuesto'),
+            trailing: Icon(Icons.arrow_forward_ios_rounded),
+            onTap: () {
+              context.push('/bloc-counter');
+            },
+          ),
         ],
       ),
     );
