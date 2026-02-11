@@ -8,3 +8,5 @@ class CounterIncresed extends CounterEvent {
   final int value;
   CounterIncresed(this.value);
 }
+
+class CounterReset extends CounterEvent {}

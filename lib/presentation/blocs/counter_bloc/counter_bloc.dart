@@ -9,6 +9,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     //La forma _onCounterIncresed sin argumento osea sin parentesis "()" tambien es la misma forma(event, emit) => _onCounterIncresed(event, emit)
     //esto solo se hace porque es la misma cantidad de argumentos que se envia que se recibe
     on<CounterIncresed>(_onCounterIncresed);
+    on<CounterReset>(_counterReset);
   }
 
   void _onCounterIncresed(CounterIncresed event, Emitter<CounterState> emit) {
@@ -18,5 +19,9 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
         transactionCount: state.transactionCount + 1,
       ),
     );
+  }
+
+  void _counterReset(CounterReset event, Emitter<CounterState> emit) {
+    emit(state.copyWidht(counter: 0));
   }
 }
