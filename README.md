@@ -1,16 +1,38 @@
-# forms_app
+BlocCubitsCounter
 
-A new Flutter project.
+✨ App Flutter que implementa dos contadores: uno con Cubit y otro con Bloc para manejo de estado.
 
-## Getting Started
+Este proyecto es un ejemplo sencillo para comparar Cubit y Bloc usando la librería flutter_bloc en Flutter. Cubit es ideal para casos simples de estado, mientras que Bloc sigue un patrón más formal con eventos y estados separados.
 
-This project is a starting point for a Flutter application.
+🚀 Características
 
-A few resources to get you started if this is your first Flutter project:
+✔️ Contador usando Cubit
+✔️ Contador usando Bloc
+✔️ Gestión de estado con la librería oficial flutter_bloc
+✔️ Ejemplo para aprender y comparar ambas implementaciones
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+📌 ¿Qué es Cubit y Bloc?
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Cubit es una forma simplificada de hacer gestión de estado usando funciones para emitir nuevos estados.
+Bloc implementa un patrón más robusto donde se manejan events y states, ideal para lógicas más complejas.
+
+🛠 Instalación
+
+1. Clona el repositorio: git clone https://github.com/jusebcasan/BlocCubitsCounter.git
+2. Instala dependencias: cd BlocCubitsCounter
+flutter pub get
+3. Ejecuta en tu dispositivo o emulador: flutter run
+
+📱 Uso
+🧮 Cubit Counter:
+Inicia el contador en 0.
+Presiona los botones de + y - para incrementar o decrementar el valor.
+
+🔁 Bloc Counter:
+Similar al Cubit, pero con manejo de eventos y estados separados.
+
+🧠 ¿Qué aprenderás con este proyecto?
+Este proyecto te permite entender diferencias prácticas entre:
+Cubit vs Bloc
+Cómo usar BlocProvider y BlocBuilder
+Cómo separar lógica de negocio de la UI en Flutter
