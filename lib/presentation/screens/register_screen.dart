@@ -40,41 +40,29 @@ class _RegisterView extends StatelessWidget {
   }
 }
 
-class _RegisterForm extends StatefulWidget {
+class _RegisterForm extends StatelessWidget {
   const _RegisterForm();
 
   @override
-  State<_RegisterForm> createState() => _RegisterFormState();
-}
-
-class _RegisterFormState extends State<_RegisterForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  @override
   Widget build(BuildContext context) {
     final registerCubit = context.watch<RegisterCubit>();
+    final username = registerCubit.state.username;
+    final password = registerCubit.state.password;
     return Form(
-      key: _formKey,
       child: Column(
         children: [
           CustomTextFormField(
             label: 'Nombre de Usuario',
             onChanged: (value) {
               registerCubit.usernameChanged(value);
-              _formKey.currentState?.validate();
             },
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Campo Requerido';
-              if (value.trim().isEmpty) return 'Campo Requerido';
-              if (value.length < 6) return 'Mas de 6 letras';
-              return null;
-            },
+            errorMessage: username.errorMessage,
           ),
           SizedBox(height: 10),
           CustomTextFormField(
             label: 'Correo Electronico',
             onChanged: (value) {
               registerCubit.emailChanged(value);
-              _formKey.currentState?.validate();
             },
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo Requerido';
@@ -92,20 +80,12 @@ class _RegisterFormState extends State<_RegisterForm> {
             obscureText: true,
             onChanged: (value) {
               registerCubit.passwordChanged(value);
-              _formKey.currentState?.validate();
             },
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Campo Requerido';
-              if (value.trim().isEmpty) return 'Campo Requerido';
-              if (value.length < 6) return 'Mas de 6 letras';
-              return null;
-            },
+            errorMessage: password.errorMessage,
           ),
           SizedBox(height: 20),
           FilledButton.tonalIcon(
             onPressed: () {
-              final isValid = _formKey.currentState!.validate();
-              if (!isValid) return;
               registerCubit.onSubmit();
             },
             label: Text("Crear Usuario"),
